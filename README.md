@@ -14,6 +14,28 @@ This project focuses on developing a self-supervised learning framework for medi
 - **`breast`**: A self-supervised learning framework inspired by the paper [Self-supervised Learning in Pathology](https://www.arxiv.org/pdf/2408.10600.pdf). The image preprocessing in this pipeline is replaced by the custom scripts listed above.
 
 ---
+# How to Run
+
+1. **Transform Dataset Format and Generate Processed Dataset**
+   - Use `get_mask_new.py` to transform the original dataset format.
+   - Use `stack_imgs.py` to process and generate the stacked dataset.
+
+2. **Pretrain the Self-Supervised Model**
+   - Use the stacked dataset folder (`stack`) as input for pretraining.
+   - Run the following command to train the model and obtain pretrained weights:
+     `python breast/pretrain/main/train.py`
+
+3. **Generate Downstream Task Dataset**
+   - Use `downstream_data.py` on the `stack` dataset to generate the downstream classification task dataset, which includes:
+     - `train/images`
+     - `test/images`
+     - `train.csv`
+     - `test.csv`
+
+4. **Train and Test the Downstream Task**
+   - Run the downstream training and testing process:
+     `python downstream/train.py`
+
 
 ## Directory Structure
 
@@ -38,26 +60,4 @@ This project focuses on developing a self-supervised learning framework for medi
 │   ├── tools
 │   │   ├── dataloader.py
 │   │   ├── DenseNet.py
-
-# How to Run
-
-1. **Transform Dataset Format and Generate Processed Dataset**
-   - Use `get_mask_new.py` to transform the original dataset format.
-   - Use `stack_imgs.py` to process and generate the stacked dataset.
-
-2. **Pretrain the Self-Supervised Model**
-   - Use the stacked dataset folder (`stack`) as input for pretraining.
-   - Run the following command to train the model and obtain pretrained weights:
-     `python breast/pretrain/main/train.py`
-
-3. **Generate Downstream Task Dataset**
-   - Use `downstream_data.py` on the `stack` dataset to generate the downstream classification task dataset, which includes:
-     - `train/images`
-     - `test/images`
-     - `train.csv`
-     - `test.csv`
-
-4. **Train and Test the Downstream Task**
-   - Run the downstream training and testing process:
-     `python downstream/train.py`
 
